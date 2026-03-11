@@ -2,7 +2,7 @@
 
 _find_host_qt_plugins() {
 	_qt_dirs_to_check="
-	  /usr/lib/$APPIMAGE_ARCH-gnu/qt6/plugins
+	  /usr/lib/$APPIMAGE_ARCH-linux-gnu/qt6/plugins
 	  /usr/lib64/qt6/plugins
 	  /usr/lib/qt6/plugins
 	  /usr/lib/qt/plugins
