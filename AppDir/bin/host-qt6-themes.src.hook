@@ -1,0 +1,35 @@
+#!/bin/false
+
+_find_host_qt_plugins() {
+	_qt_dirs_to_check="
+	  /usr/lib/$APPIMAGE_ARCH-gnu/qt6/plugins
+	  /usr/lib64/qt6/plugins
+	  /usr/lib/qt6/plugins
+	  /usr/lib/qt/plugins
+	"
+	for d in $_qt_dirs_to_check; do
+		if [ -d "$d" ]; then
+			_platformthemes=$d/styles
+			_styles=$d/platformthemes
+			mkdir -p "$HOST_QT_PLUGINS"
+			if [ "$_platformthemes" ]; then
+				ln -sfn "$_platformthemes" "$HOST_QT_PLUGINS"
+			fi
+			if [ "$_styles" ]; then
+				ln -sfn "$_styles" "$HOST_QT_PLUGINS"
+			fi
+			return 0
+		fi
+	done
+	return 1
+}
+
+HOST_QT_PLUGINS=$HOST_XDG_CACHE_HOME/host-qt-plugins
+APPDIR_QT_PLUGINS=$APPDIR/lib/qt6/plugins
+
+if [ "$ALLOW_HOST_QT_PLUGINS" = 1 ] \
+  && [ -d "$APPDIR_QT_PLUGINS" ] && _find_host_qt_plugins; then
+	export SHARUN_ALLOW_QT_PLUGIN_PATH=1
+	export QT_PLUGIN_PATH="$APPDIR_QT_PLUGINS:$HOST_QT_PLUGINS"
+fi
+
