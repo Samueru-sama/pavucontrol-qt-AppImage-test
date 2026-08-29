@@ -10,6 +10,8 @@ pacman -Syu --noconfirm pavucontrol-qt kvantum lxqt-qtplugin breeze plasma-integ
 
 echo "Installing debloated packages..."
 echo "---------------------------------------------------------------"
-get-debloated-pkgs --add-common --prefer-nano
+
 
 make-aur-package qt6ct-kde
+
+get-debloated-pkgs --add-common --prefer-nano
